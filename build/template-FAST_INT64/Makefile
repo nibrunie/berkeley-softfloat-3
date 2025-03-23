@@ -175,6 +175,7 @@ OBJS_OTHERS = \
   i64_to_extF80M$(OBJ) \
   i64_to_f128$(OBJ) \
   i64_to_f128M$(OBJ) \
+  ofp8_e5m2_to_f32$(OBJ) \
   bf16_isSignalingNaN$(OBJ) \
   bf16_to_f32$(OBJ) \
   f16_to_ui32$(OBJ) \

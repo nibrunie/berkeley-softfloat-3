@@ -40,13 +40,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdint.h>
 
 /*----------------------------------------------------------------------------
-| Types used to pass 16-bit, 32-bit, 64-bit, and 128-bit floating-point
+| Types used to pass 8-bit, 16-bit, 32-bit, 64-bit, and 128-bit floating-point
 | arguments and results to/from functions.  These types must be exactly
-| 16 bits, 32 bits, 64 bits, and 128 bits in size, respectively.  Where a
+| 8 bits, 16 bits, 32 bits, 64 bits, and 128 bits in size, respectively. Where a
 | platform has "native" support for IEEE-Standard floating-point formats,
 | the types below may, if desired, be defined as aliases for the native types
 | (typically 'float' and 'double', and possibly 'long double').
 *----------------------------------------------------------------------------*/
+typedef struct { uint8_t v; } ofp8_e4m3_t;
+typedef struct { uint8_t v; } ofp8_e5m2_t;
 typedef struct { uint16_t v; } float16_t;
 typedef struct { uint16_t v; } bfloat16_t;
 typedef struct { uint32_t v; } float32_t;

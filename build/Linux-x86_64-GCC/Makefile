@@ -91,6 +91,7 @@ OBJS_PRIMITIVES = \
 
 OBJS_SPECIALIZE = \
   softfloat_raiseFlags$(OBJ) \
+  s_ofp8UIToCommonNaN$(OBJ) \
   s_f16UIToCommonNaN$(OBJ) \
   s_commonNaNToF16UI$(OBJ) \
   s_propagateNaNF16UI$(OBJ) \
@@ -176,6 +177,7 @@ OBJS_OTHERS = \
   i64_to_extF80M$(OBJ) \
   i64_to_f128$(OBJ) \
   i64_to_f128M$(OBJ) \
+  ofp8_to_f32$(OBJ) \
   bf16_isSignalingNaN$(OBJ) \
   bf16_to_f32$(OBJ) \
   f16_to_ui32$(OBJ) \

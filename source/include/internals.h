@@ -42,6 +42,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "primitives.h"
 #include "softfloat_types.h"
 
+union ui8_ofp8_e5m2 { uint8_t ui; ofp8_e5m2_t f; };
+union ui8_ofp8_e4m3 { uint8_t ui; ofp8_e4m3_t f; };
 union ui16_f16 { uint16_t ui; float16_t f; };
 union ui16_bf16 { uint16_t ui; bfloat16_t f; };
 union ui32_f32 { uint32_t ui; float32_t f; };
@@ -78,6 +80,29 @@ int_fast64_t
 #else
 int_fast64_t softfloat_roundMToI64( bool, uint32_t *, uint_fast8_t, bool );
 #endif
+
+/*----------------------------------------------------------------------------
+ * Utilities for manipulating 8-bit Open Computer Floating-Point (OFP8) numbers
+ *----------------------------------------------------------------------------*/
+#define signOFP8UI( a ) ((bool) ((uint8_t) (a)>>7))
+
+#define expOFP8E5M2UI( a ) ((int_fast16_t) ((a)>>2) & 0x1F)
+#define fracOFP8E5M2UI( a ) ((a) & 0x03)
+#define packToOFP8E5M2UI( sign, exp, sig ) (((uint8_t) (sign)<<7) + ((uint8_t) (exp)<<2) + (sig))
+
+#define isNaNOFP8E5M2UI( a ) (((~(a) & 0x7C) == 0) && ((a) & 0x3))
+
+ofp8_e5m2_t softfloat_roundPackToOFP8E5M2( bool, int_fast16_t, uint_fast16_t );
+struct exp8_sig16 softfloat_normSubnormalOFP8E5M2Sig( uint_fast16_t );
+
+#define expOFP8E4M3UI( a ) ((int_fast16_t) ((a)>>3) & 0xF)
+#define fracOFP8E4M3UI( a ) ((a) & 0x07)
+#define packToOFP8E4M3UI( sign, exp, sig ) (((uint8_t) (sign)<<7) + ((uint8_t) (exp)<<3) + (sig))
+
+#define isNaNOFP8E4M3UI( a ) (((~(a) & 0x78) == 0) && ((a) & 0x7))
+
+ofp8_e4m3_t softfloat_roundPackToOFP8E4M3( bool, int_fast16_t, uint_fast16_t );
+struct exp8_sig16 softfloat_normSubnormalOFP8E4M3Sig( uint_fast16_t );
 
 /*----------------------------------------------------------------------------
 *----------------------------------------------------------------------------*/
